@@ -11,12 +11,12 @@ router.post( '/', auth,  organizationService.createOrganization );
 router.post( '/invitation', auth,  organizationService.inviteMembers );
 
 // accept invitation to an organization
-router.post( '/invitation/:invitationCode', auth, organizationService.acceptInvitation );
+router.put( '/invitation/:invitationCode', auth, organizationService.acceptInvitation );
 
 // fetch all roles
-router.get( '/roles', organizationService.getRoles );
+router.get( '/roles', auth, organizationService.getRoles );
 
 // get organization by id
-router.get( '/', organizationService.getAllOrganizations );
+router.get( '/', auth, organizationService.getAllOrganizations );
 
 module.exports = router;

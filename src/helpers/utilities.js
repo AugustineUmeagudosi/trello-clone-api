@@ -7,7 +7,7 @@ require('dotenv').config();
 
 module.exports = {
     generateAuthToken: (user) => {
-        const token = jwt.sign({_id: user.id, role: user.role}, process.env.JWT_SECRET);
+        const token = jwt.sign({_id: user.id}, process.env.JWT_SECRET);
         return token;
     },
     

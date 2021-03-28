@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Organization, { foreignKey: 'createdBy' });
       User.hasMany(models.Invitation, { foreignKey: 'invitedBy' });
       User.hasMany(models.Project, { foreignKey: 'createdBy' });
-      User.belongsToMany(models.Organization, { through: models.OrganizationMember }, { foreignKey: 'memberId' });
+      // User.belongsToMany(models.Organization, { through: models.OrganizationMember }, { foreignKey: 'memberId' });
       User.hasMany(models.OrganizationMember, { foreignKey: 'memberId' });
     }
   }

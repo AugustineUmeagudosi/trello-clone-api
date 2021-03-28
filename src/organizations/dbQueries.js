@@ -16,14 +16,16 @@ module.exports = {
     },
     
     getInvitation: (code) => {
-        return Invitation.findOne({where: {invitationCode: code}}).catch(error => console.log(error.message));
+        return Invitation.findOne({
+            where: {invitationCode: code, invitationStatus: null 
+        }}).catch(error => console.log(error.message));
     },
     
     createOrganizationMember: (member) => {
         return OrganizationMember.create(member).catch(error => console.log(error.message));
     },
     
-    findOne: (id) => {
+    getOrganizationById: (id) => {
         return Organization.findOne({
             where: {id},
             attributes: variables.organizationDetails, 
@@ -44,5 +46,12 @@ module.exports = {
 
     getRoles: () => {
         return OrganizationMembersRole.findAll().catch(error => console.log(error.message));
+    },
+
+    updateInvitationStatus: (invitation) => {
+        return Invitation.update(
+            { invitationStatus: invitation.invitationStatus},
+            { where : { id: invitation.id } }
+        ).catch(error => console.log(error.message));
     }
 };

@@ -49,20 +49,21 @@ module.exports = {
     acceptInvitation: async (req, res) => {
         const invitation = await dbQueries.getInvitation(req.params.invitationCode);
         if(!invitation) return responseMessages.badRequest('Invalid invitation code', res);
-
+        
         const organizationExists = await dbQueries.getOrganizationById(invitation.organizationId);
         if(!organizationExists) return responseMessages.badRequest('Invalid organization', res);
 
         const newOrganizationMember = {};
+        newOrganizationMember.id = uuidv4();
         newOrganizationMember.organizationId = invitation.organizationId;
         newOrganizationMember.memberId = req.user._id;
         newOrganizationMember.roleId = invitation.roleId;
         await dbQueries.createOrganizationMember(newOrganizationMember);
+        
+        invitation.invitationStatus = 'Accepted';
+        await dbQueries.updateInvitationStatus(invitation);
 
-        invitation.status = 'Accepted';
-        // update invitation
-
-        return responseMessages.created('Invitation accepted successfully!', res);
+        return responseMessages.created('Invitation accepted successfully!',invitation, res);
     },
 
     getAllOrganizations: async (req, res) => {
