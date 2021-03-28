@@ -4,7 +4,9 @@ const _ = require('lodash'),
     validate = require('./validation'),
     responseMessages = require('../helpers/responseMessages'),
     variables = require('../helpers/parameters'),
-    helpers = require('../helpers/utilities');
+    helpers = require('../helpers/utilities'),
+    { v4: uuidv4 } = require('uuid');
+
 
 module.exports = {
     registration: async (req, res) => {
@@ -15,6 +17,7 @@ module.exports = {
         if(emailExists) return responseMessages.badRequest( 'This email already exists.', res );
 
         const user = _.pick(req.body, variables.userDetails);
+        user.id = uuidv4();
         user.email = req.body.email.toLowerCase();  
         const salt = await bcrypt.genSalt(10);
         

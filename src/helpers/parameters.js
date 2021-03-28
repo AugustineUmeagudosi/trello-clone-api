@@ -1,14 +1,14 @@
 //users
 const userDetails = [
-    'uuid', 'email', 'name'
+    'id', 'email', 'name'
 ],
 
 organizationDetails = [
-    'uuid', 'name', 'slug', 'createdBy'
+    'id', 'name', 'slug', 'createdBy'
 ];
 
 invitationDetails = [
-    'uuid', 'projectId', 'organizationId', 'invitationCode', 'inviteeEmail', 'invitedBy'
+    'id', 'projectId', 'organizationId', 'invitationCode', 'inviteeEmail', 'invitedBy'
 ];
 
 module.exports = {
