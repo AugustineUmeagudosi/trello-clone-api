@@ -34,7 +34,12 @@ module.exports = {
     },
 
     getAllOrganizations: () => {
-        return Organization.findAll().catch(error => console.log(error.message));
+        return Organization.findAll({
+            attributes: variables.organizationDetails, 
+            include:[
+                { model: User, attributes: ['name'] },
+            ]
+        }).catch(error => console.log(error.message));
     },
 
     getRoles: () => {
