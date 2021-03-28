@@ -14,6 +14,6 @@ router.post( '/invitation', auth,  organizationService.inviteMembers );
 router.post( '/invitation/:invitationCode', auth, organizationService.acceptInvitation );
 
 // accept invitation
-router.get( '/:uuid', organizationService.getOrganization );
+router.get( '/:organizationId', organizationService.getOrganization );
 
 module.exports = router;

@@ -4,14 +4,17 @@ const _ = require('lodash'),
     responseMessages = require('../helpers/responseMessages'),
     variables = require('../helpers/parameters'),
     helpers = require('../helpers/utilities'),
-    mailService = require('../helpers/mailServices');
+    mailService = require('../helpers/mailServices'),
+    { v4: uuidv4 } = require('uuid');
+
 
 module.exports = {
     createOrganization: async (req, res) => {
         const { error } = validate.createOrganization(req.body);
         if(error) return responseMessages.badRequest( error.details[0].message, res );
 
-        const organization = _.pick(req.body, variables.organizationDetails);        
+        const organization = _.pick(req.body, variables.organizationDetails); 
+        organization.id = uuidv4();       
         organization.createdBy = req.user._id;
         organization.slug = helpers.generateOrganizationSlug(req.body.name);
         const organizationData = await dbQueries.createOrganization(organization);  
@@ -63,7 +66,7 @@ module.exports = {
     },
 
     getOrganization: async (req, res) => {
-        const organization = await dbQueries.findOne(req.params.uuid);
+        const organization = await dbQueries.findOne(req.params.organizationId);
         if(!organization) return responseMessages.badRequest('Invalid organization', res);
 
         return responseMessages.success('Here you go', organization, res);

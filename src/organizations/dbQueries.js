@@ -23,9 +23,9 @@ module.exports = {
         return OrganizationMember.create(member).catch(error => console.log(error.message));
     },
     
-    findOne: (uuid) => {
+    findOne: (id) => {
         return Organization.findOne({
-            where: {uuid},
+            where: {id},
             attributes: variables.organizationDetails, 
             include:[
                 { model: User, attributes: ['name'] },
