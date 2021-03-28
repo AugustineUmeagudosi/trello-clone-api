@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Organization.init({
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     slug: { type: DataTypes.STRING, allowNull: false, },
     name: { type: DataTypes.STRING, allowNull: false, },
     createdBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'User', key: 'id'} }

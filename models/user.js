@@ -14,8 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       // User.belongsToMany(models.Organization, { through: models.OrganizationMember }, { foreignKey: 'memberId' });
       // User.hasMany(models.OrganizationMember, { foreignKey: 'memberId' });
     }
+    // toJSON(){
+    //   return { ...this.get(), id: undefined };
+    // }
   }
   User.init({
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     name: { type: DataTypes.STRING, allowNull: false, },
     email: { type: DataTypes.STRING, allowNull: false, unique: true},
     password: { type: DataTypes.STRING, allowNull: false, },

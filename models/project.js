@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Project.init({
+    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: true },
     slug: { type: DataTypes.STRING, allowNull: false },

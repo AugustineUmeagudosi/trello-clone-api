@@ -19,9 +19,9 @@ module.exports = {
         const salt = await bcrypt.genSalt(10);
         
         user.password = await bcrypt.hash(req.body.password, salt);
-        await dbQueries.createUser(user);
+        const userData = await dbQueries.createUser(user);
 
-        const data = _.pick(user, variables.userDetails);
+        const data = _.pick(userData, variables.userDetails);
         return responseMessages.created('You have been registered!.', data, res);
     },
 
