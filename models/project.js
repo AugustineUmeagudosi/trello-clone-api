@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Project.belongsTo(models.User, { foreignKey: 'createdBy' });
       Project.belongsTo(models.Organization, { foreignKey: 'organizationId' });
-      // Project.hasMany(models.Invitation, { foreignKey: 'invitedBy' });
+      Project.hasMany(models.Invitation, { foreignKey: 'invitedBy' });
     }
   }
   Project.init({
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: true },
     slug: { type: DataTypes.STRING, allowNull: false },
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization', key: 'id'} },
+    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization'} },
     createdBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'User', key: 'id'} },
     deleted_at: { type: DataTypes.DATE, allowNull: true, },
   }, {

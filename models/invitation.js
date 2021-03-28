@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Invitation.hasOne(models.Project, { foreignKey: 'projectId' });
-      Invitation.hasOne(models.Organization, { foreignKey: 'organizationId' });
-      Invitation.hasOne(models.OrganizationMembersRole, { foreignKey: 'roleId' });      
+      Invitation.hasOne(models.OrganizationMembersRole, { foreignKey: 'roleId' });
+      Invitation.belongsTo(models.Organization, { foreignKey: 'organizationId' });
     }
   }
   Invitation.init({
     uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     projectId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Project', key: 'id'} },
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization', key: 'id'}},
+    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization'} },
     inviteeEmail: { type: DataTypes.STRING, allowNull: false},
     invitationCode: { type: DataTypes.STRING, allowNull: false},
     roleId: { type: DataTypes.STRING, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRole', key: 'id'}},

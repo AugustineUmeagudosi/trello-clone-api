@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       OrganizationMember.hasOne(models.OrganizationMembersRole, { foreignKey: 'roleId' });
       OrganizationMember.belongsTo(models.User, { foreignKey: 'memberId' });
-      OrganizationMember.hasMany(models.Organization, { foreignKey: 'organizationId' });
+      OrganizationMember.belongsTo(models.Organization, { foreignKey: 'organizationId' });
     }
   }
   OrganizationMember.init({
