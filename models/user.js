@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Organization, { foreignKey: 'createdBy' });
-      // User.hasMany(models.Invitation, { foreignKey: 'invitedBy' });
-      // User.hasMany(models.Project, { foreignKey: 'createdBy' });
-      // User.belongsToMany(models.Organization, { through: models.OrganizationMember }, { foreignKey: 'memberId' });
-      // User.hasMany(models.OrganizationMember, { foreignKey: 'memberId' });
+      User.hasMany(models.Invitation, { foreignKey: 'invitedBy' });
+      User.hasMany(models.Project, { foreignKey: 'createdBy' });
+      User.belongsToMany(models.Organization, { through: models.OrganizationMember }, { foreignKey: 'memberId' });
+      User.hasMany(models.OrganizationMember, { foreignKey: 'memberId' });
     }
     // toJSON(){
     //   return { ...this.get(), id: undefined };

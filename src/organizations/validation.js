@@ -10,8 +10,8 @@ function createOrganization(organization) {
 
 function invitations(organization) {
   const schema = Joi.object().keys({
-    organizationId: Joi.number().required(),
-    inviteeEmail: Joi.array().required()
+    organizationId: Joi.string().required(),
+    invitees: Joi.array().required()
   });
 
   return schema.validate(organization);

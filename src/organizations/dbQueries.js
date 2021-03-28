@@ -8,7 +8,7 @@ module.exports = {
     },
     
     findOrganizationById: (id) => {
-        return Organization.findByPk(id).catch(error => console.log(error.message));
+        return Organization.findOne({where: {uuid: id}}).catch(error => console.log(error.message));
     },
     
     createInvitation: (invitation) => {

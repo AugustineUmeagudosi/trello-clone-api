@@ -8,11 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-    //   OrganizationMembersRole.hasMany(models.OrganizationMember, { foreignKey: 'roleId' });
+      // OrganizationMembersRole.hasMany(models.OrganizationMember, { foreignKey: 'roleId' });
     }
   }
   OrganizationMembersRole.init({
-    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     role: { type: DataTypes.STRING, allowNull: false},
   }, {
     sequelize,

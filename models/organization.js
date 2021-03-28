@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Organization.belongsTo(models.User, { foreignKey: 'createdBy' });
-      // Organization.hasMany(models.Invitation, { foreignKey: 'organizationId' });
-      // Organization.hasMany(models.Project, { foreignKey: 'organizationId' });
-      // Organization.hasMany(models.OrganizationMember, { foreignKey: 'organizationId' });
+      Organization.hasMany(models.Project, { foreignKey: 'organizationId' });
+      Organization.hasMany(models.Invitation, { foreignKey: 'organizationId' });
+      Organization.hasMany(models.OrganizationMember, { foreignKey: 'organizationId' });
     }
   }
   Organization.init({

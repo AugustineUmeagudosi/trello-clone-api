@@ -7,7 +7,7 @@ module.exports = {
       organizationId: { type: Sequelize.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organizations', key: 'id'}},
       inviteeEmail: { type: Sequelize.STRING, allowNull: false},
       invitationCode: { type: Sequelize.STRING, allowNull: false},
-      roleId: { type: Sequelize.INTEGER, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRoles', key: 'id'}},
+      roleId: { type: Sequelize.UUID, allowNull: false, foreignKey: true, references: {model: 'OrganizationMembersRoles', key: 'id'}},
       invitationStatus: { type: Sequelize.STRING, allowNull: true},
       invitedBy: { type: Sequelize.INTEGER, allowNull: false, foreignKey: true, references: {model: 'Users', key: 'id'}},
       createdAt: { allowNull: false, type: Sequelize.DATE },

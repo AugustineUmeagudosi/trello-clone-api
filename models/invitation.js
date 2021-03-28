@@ -9,19 +9,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Invitation.hasOne(models.Project, { foreignKey: 'projectId' });
-      // Invitation.hasOne(models.Organization, { foreignKey: 'organizationId' });
+      Invitation.hasOne(models.Organization, { foreignKey: 'organizationId' });
       Invitation.hasOne(models.OrganizationMembersRole, { foreignKey: 'roleId' });      
     }
   }
   Invitation.init({
     uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
-    projectId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Projects', key: 'id'} },
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organizations', key: 'id'}},
+    projectId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Project', key: 'id'} },
+    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization', key: 'id'}},
     inviteeEmail: { type: DataTypes.STRING, allowNull: false},
     invitationCode: { type: DataTypes.STRING, allowNull: false},
-    roleId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRoles', key: 'id'}},
+    roleId: { type: DataTypes.STRING, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRole', key: 'id'}},
     invitationStatus: { type: DataTypes.STRING, allowNull: true},
-    invitedBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'Users', key: 'id'}}
+    invitedBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'User', key: 'id'}}
   }, {
     sequelize,
     modelName: 'Invitation',

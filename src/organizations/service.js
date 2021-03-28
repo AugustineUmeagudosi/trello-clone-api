@@ -24,16 +24,19 @@ module.exports = {
         const { error } = validate.invitations(req.body);
         if(error) return responseMessages.badRequest( error.details[0].message, res );
 
-        const organization = await dbQueries.findOrganizationById(req.body.organizationId);
+        const organization = await dbQueries.findOne(req.body.organizationId);
         if(!organization) return responseMessages.badRequest('Invalid organization', res);
         if(organization.createdBy !== req.user._id) return responseMessages.forbidden('Please contact the organization owner', res);
 
-        req.body.inviteeEmail.forEach(async(inviteeEmail) => {
-            const invitation = _.pick(req.body, variables.invitationDetails);        
+        req.body.invitees.forEach(async(invitee) => {
+            const invitation = {}; 
+            invitation.inviteeEmail = invitee.email;
+            invitation.roleId = invitee.roleId;
+            invitation.organizationId = req.body.organizationId;
             invitation.invitedBy = req.user._id;
             invitation.invitationCode = helpers.generateinvitationCode();
-            invitation.inviteeEmail = inviteeEmail;
             await dbQueries.createInvitation(invitation); 
+            console.log(invitation);
         }); 
 
         // mailService.sendVerificationEmail(req.body.inviteeEmail);
