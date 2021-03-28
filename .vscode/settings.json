@@ -1,0 +1,9 @@
+{
+    "jshint.config": "",
+    "jshint.options": {
+        "esversion": 9
+    },
+    "jshint.exclude": {
+    
+    },
+}
