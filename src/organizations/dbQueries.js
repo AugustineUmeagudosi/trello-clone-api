@@ -1,4 +1,4 @@
-const { Sequelize, User, Organization, Invitation, OrganizationMember } = require("../../models");
+const { Sequelize, User, Organization, Invitation, OrganizationMembersRole, OrganizationMember } = require("../../models");
 const Op = Sequelize.Op;
 const variables = require('../helpers/parameters');
 
@@ -31,5 +31,13 @@ module.exports = {
                 { model: User, attributes: ['name'] },
             ] 
         }).catch(error => console.log(error));
+    },
+
+    getAllOrganizations: () => {
+        return Organization.findAll().catch(error => console.log(error.message));
+    },
+
+    getRoles: () => {
+        return OrganizationMembersRole.findAll().catch(error => console.log(error.message));
     }
 };

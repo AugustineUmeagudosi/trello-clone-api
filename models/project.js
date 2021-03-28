@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: true },
-    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations'} },
+    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organization'} },
     slug: { type: DataTypes.STRING, allowNull: false },
-    createdBy: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'Users'} },
+    createdBy: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'User'} },
     deleted_at: { type: DataTypes.DATE, allowNull: true, },
   }, {
     sequelize,

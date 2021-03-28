@@ -33,13 +33,13 @@ module.exports = {
 
         req.body.invitees.forEach(async(invitee) => {
             const invitation = {}; 
+            invitation.id = uuidv4();
             invitation.inviteeEmail = invitee.email;
             invitation.roleId = invitee.roleId;
             invitation.organizationId = req.body.organizationId;
             invitation.invitedBy = req.user._id;
             invitation.invitationCode = helpers.generateinvitationCode();
             await dbQueries.createInvitation(invitation); 
-            console.log(invitation);
         }); 
 
         // mailService.sendVerificationEmail(req.body.inviteeEmail);
@@ -65,10 +65,17 @@ module.exports = {
         return responseMessages.created('Invitation accepted successfully!', res);
     },
 
-    getOrganization: async (req, res) => {
-        const organization = await dbQueries.findOne(req.params.organizationId);
+    getAllOrganizations: async (req, res) => {
+        const organization = await dbQueries.getAllOrganizations();
         if(!organization) return responseMessages.badRequest('Invalid organization', res);
 
         return responseMessages.success('Here you go', organization, res);
+    },
+
+    getRoles: async (req, res) => {
+        const roles = await dbQueries.getRoles();
+        if(!roles) return responseMessages.notFound('No roles found', res);
+
+        return responseMessages.success('Here you go', roles, res);
     }
 };

@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      OrganizationMember.hasOne(models.OrganizationMembersRole, { foreignKey: 'roleId' });
       OrganizationMember.belongsTo(models.User, { foreignKey: 'memberId' });
       OrganizationMember.belongsTo(models.Organization, { foreignKey: 'organizationId' });
+      // OrganizationMember.belongsTo(models.OrganizationMembersRole, { foreignKey: 'roleId' });
     }
   }
   OrganizationMember.init({
-    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations', key: 'id'}},
-    memberId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Users', key: 'id'}},
-    roleId: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'OrganizationMembersRoles'}},
+    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organization', key: 'id'}},
+    memberId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'User', key: 'id'}},
+    roleId: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'OrganizationMembersRole'}},
   }, {
     sequelize,
     modelName: 'OrganizationMember',

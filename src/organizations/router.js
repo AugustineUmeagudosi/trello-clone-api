@@ -13,7 +13,10 @@ router.post( '/invitation', auth,  organizationService.inviteMembers );
 // accept invitation to an organization
 router.post( '/invitation/:invitationCode', auth, organizationService.acceptInvitation );
 
-// accept invitation
-router.get( '/:organizationId', organizationService.getOrganization );
+// fetch all roles
+router.get( '/roles', organizationService.getRoles );
+
+// get organization by id
+router.get( '/', organizationService.getAllOrganizations );
 
 module.exports = router;
