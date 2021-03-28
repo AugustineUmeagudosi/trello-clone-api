@@ -14,14 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Invitation.init({
-    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
-    projectId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Project', key: 'id'} },
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization'} },
+    projectId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Projects'} },
+    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations'} },
     inviteeEmail: { type: DataTypes.STRING, allowNull: false},
     invitationCode: { type: DataTypes.STRING, allowNull: false},
-    roleId: { type: DataTypes.STRING, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRole', key: 'id'}},
+    roleId: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'OrganizationMembersRoles'} },
     invitationStatus: { type: DataTypes.STRING, allowNull: true},
-    invitedBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'User', key: 'id'}}
+    invitedBy: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'Users'} },
   }, {
     sequelize,
     modelName: 'Invitation',

@@ -14,12 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Project.init({
-    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: true },
+    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations'} },
     slug: { type: DataTypes.STRING, allowNull: false },
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization'} },
-    createdBy: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true, references: {model: 'User', key: 'id'} },
+    createdBy: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'Users'} },
     deleted_at: { type: DataTypes.DATE, allowNull: true, },
   }, {
     sequelize,

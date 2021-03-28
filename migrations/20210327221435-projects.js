@@ -1,13 +1,12 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Projects', {
-      id: { allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER },
-      uuid: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4},
+      id: { allowNull: false, primaryKey: true, type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4 },
       title: { type: Sequelize.STRING, allowNull: false },
       description: { type: Sequelize.STRING, allowNull: true },
-      organizationId: { type: Sequelize.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organizations', key: 'id'} },
+      organizationId: { type: Sequelize.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations'} },
       slug: { type: Sequelize.STRING, allowNull: false },
-      createdBy: { type: Sequelize.INTEGER, allowNull: false, foreignKey: true, references: {model: 'Users', key: 'id'} },
+      createdBy: { type: Sequelize.UUID, allowNull: false, foreignKey: true, references: {model: 'Users'} },
       deleted_at: { type: Sequelize.DATE, allowNull: true, },
       createdAt: { allowNull: false, type: Sequelize.DATE },
       updatedAt: { allowNull: false, type: Sequelize.DATE }

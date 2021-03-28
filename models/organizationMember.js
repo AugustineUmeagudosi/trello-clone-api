@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   OrganizationMember.init({
-    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4},
-    organizationId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'Organization', key: 'id'}},
-    memberId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'User', key: 'id'}},
-    roleId: { type: DataTypes.INTEGER, allowNull: true, foreignKey: true, references: {model: 'OrganizationMembersRole', key: 'id'}},
+    organizationId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Organizations', key: 'id'}},
+    memberId: { type: DataTypes.UUID, allowNull: true, foreignKey: true, references: {model: 'Users', key: 'id'}},
+    roleId: { type: DataTypes.UUID, allowNull: false, foreignKey: true, references: {model: 'OrganizationMembersRoles'}},
   }, {
     sequelize,
     modelName: 'OrganizationMember',
