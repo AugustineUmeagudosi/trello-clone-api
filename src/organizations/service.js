@@ -14,9 +14,9 @@ module.exports = {
         const organization = _.pick(req.body, variables.organizationDetails);        
         organization.createdBy = req.user._id;
         organization.slug = helpers.generateOrganizationSlug(req.body.name);
-        await dbQueries.createOrganization(organization);  
+        const organizationData = await dbQueries.createOrganization(organization);  
 
-        const data = _.pick(organization, variables.organizationDetails);
+        const data = _.pick(organizationData, variables.organizationDetails);
         return responseMessages.created('Organization created successfully!', data, res);
     },
 
@@ -36,7 +36,7 @@ module.exports = {
             await dbQueries.createInvitation(invitation); 
         }); 
 
-        mailService.sendVerificationEmail(req.body.inviteeEmail);
+        // mailService.sendVerificationEmail(req.body.inviteeEmail);
         return responseMessages.created('invitation(s) sent successfully!', null, res);
     },
 
@@ -60,7 +60,7 @@ module.exports = {
     },
 
     getOrganization: async (req, res) => {
-        const organization = await dbQueries.findOne(req.params.id);
+        const organization = await dbQueries.findOne(req.params.uuid);
         if(!organization) return responseMessages.badRequest('Invalid organization', res);
 
         return responseMessages.success('Here you go', organization, res);
