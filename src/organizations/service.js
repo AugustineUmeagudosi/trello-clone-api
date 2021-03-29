@@ -42,13 +42,14 @@ module.exports = {
             await dbQueries.createInvitation(invitation); 
         }); 
 
-        // mailService.sendVerificationEmail(req.body.inviteeEmail);
+        mailService.sendVerificationEmail(req.body.inviteeEmail);
         return responseMessages.created('invitation(s) sent successfully!', null, res);
     },
 
     acceptInvitation: async (req, res) => {
         const invitation = await dbQueries.getInvitation(req.params.invitationCode);
         if(!invitation) return responseMessages.badRequest('Invalid invitation code', res);
+        if(invitation.invitationStatus == 'Accepted') return responseMessages.badRequest('Invitation already accepted.', res);
         
         const organizationExists = await dbQueries.getOrganizationById(invitation.organizationId);
         if(!organizationExists) return responseMessages.badRequest('Invalid organization', res);

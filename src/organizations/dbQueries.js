@@ -16,9 +16,7 @@ module.exports = {
     },
     
     getInvitation: (code) => {
-        return Invitation.findOne({
-            where: {invitationCode: code, invitationStatus: null 
-        }}).catch(error => console.log(error.message));
+        return Invitation.findOne({ where: {invitationCode: code }}).catch(error => console.log(error.message));
     },
     
     createOrganizationMember: (member) => {
@@ -30,7 +28,7 @@ module.exports = {
             where: {id},
             attributes: variables.organizationDetails, 
             include:[
-                { model: User, attributes: ['name'] },
+                { model: User, as: 'Owner', attributes: ['name'] },
             ] 
         }).catch(error => console.log(error));
     },
@@ -39,7 +37,7 @@ module.exports = {
         return Organization.findAll({
             attributes: variables.organizationDetails, 
             include:[
-                { model: User, attributes: ['name'] },
+                { model: User, as: 'Owner', attributes: ['name'] },
             ]
         }).catch(error => console.log(error.message));
     },
